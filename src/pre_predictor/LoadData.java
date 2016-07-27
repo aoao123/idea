@@ -12,42 +12,31 @@ import java.util.List;
  * Created by LW.Meng on 2016/7/19 0019.
  */
 public class LoadData {
-    private ArrayList<String> filenames;
 
     /**
-     * 从trajData文件夹下的csv文件中抽取数据
+     * 从csv文件中抽取数据
      * @return double[]
      */
-    public double[] getCSVData(){
+    public double[] getCSVData(File file){
         List<Double> datas = new ArrayList<Double>();
-        File root=new File("TrajData");
-        File[] files=root.listFiles();
-        for(File file:files){
-            filenames.add(file.getName());
-            BufferedReader reader=null;
-            try {
-                reader = new BufferedReader(new FileReader(file));
-                String tempString = null;
-                while ((tempString=reader.readLine())!=null){
-                    String[] spl=tempString.split(",");
-                    /*
-                    for (String str:spl) {
-                        datas.add(Double.parseDouble(str));
-                    }
-                    */
-                    datas.add(Double.parseDouble(spl[1]));
-                    datas.add(Double.parseDouble(spl[1]));
+        BufferedReader reader=null;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            String tempString = null;
+            while ((tempString=reader.readLine())!=null){
+                String[] spl=tempString.split(",");
+                datas.add(Double.parseDouble(spl[1]));
+                datas.add(Double.parseDouble(spl[2]));
 
-                }
-            }catch (IOException e){
-                e.printStackTrace();
-            }finally {
-                if (reader!=null){
-                    try {
-                        reader.close();
-                    }catch (IOException e1){
-                        e1.printStackTrace();
-                    }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            if (reader!=null){
+                try {
+                    reader.close();
+                }catch (IOException e1){
+                    e1.printStackTrace();
                 }
             }
         }
@@ -61,7 +50,13 @@ public class LoadData {
         return result;
     }
 
-    public ArrayList<String> getFilenames(){
-        return filenames;
+    /**
+     * 获取文件名e
+     * @param file 输入文件
+     * @return 文件名
+     */
+    public String getFilename(File file){
+        return file.getName();
     }
+
 }
