@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +47,9 @@ public class LoadData {
         Double[] temp=datas.toArray(new Double[size]);
         double[] result=new double[size];
         for (int i=0;i<size;i++){
-            result[i]=temp[i];
+            //保留两位小数
+            BigDecimal bd = new BigDecimal(temp[i]);
+            result[i]=bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         }
         return result;
     }

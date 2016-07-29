@@ -4,6 +4,7 @@ package control;
 import post_predictor.OutData;
 import pre_predictor.LoadData;
 import predictor.LZPrediction.analysis.PyInterface;
+import predictor.markov.MarkovInter;
 
 import java.io.*;
 import java.util.List;
@@ -24,19 +25,18 @@ public class Run {
             double[]data=ld.getCSVData(file);
 
             //预测
-            double[] precision= PyInterface.getPrecision(data);
+            //markov
+            ArrayList<Double> precisions_markov=MarkovInter.getPrecision(data);
+            //LZ
+            ArrayList<Double> precisions_LZ= PyInterface.getPrecision(data);
 
+            //把结果合并到precisions_markov
+            precisions_markov.addAll(precisions_LZ);
             //预测结果输出为csv文件
-            od.outCSV(precision,ld.getFilename(file));
+            od.outCSV(precisions_markov,ld.getFilename(file));
         }
 
 
 
     }
-
-
-
-
-
-
 }

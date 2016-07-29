@@ -9,16 +9,16 @@ import java.util.List;
  * Created by LW.Meng on 2016/7/19 0019.
  */
 public class OutData {
-    public void outCSV(double[] precision,String filename){
+    public void outCSV(ArrayList<Double> precision,String filename){
         final String NEW_LINE = "\r\n";  //换行符
         StringBuilder csvStr = new StringBuilder();
         try {
             File file=new File("precisions/"+filename);
             if (file.createNewFile()){
-                //把double[]转换为List<String>
+                //把ArrayList<Double>转换为List<String>
                 List<String> result = new ArrayList<String>();
-                for(int i=0;i<precision.length;i=i+2){
-                    result.add(Double.toString(precision[i])+","+Double.toString(precision[i+1]));
+                for(int i=0;i<precision.size();i=i+2){
+                    result.add(Double.toString(precision.get(i))+","+Double.toString(precision.get(i+1)));
                 }
 
                 //数据行
@@ -36,5 +36,7 @@ public class OutData {
             e.printStackTrace();
         }
     }
+
+
 
 }
